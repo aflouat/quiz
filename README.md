@@ -1,59 +1,36 @@
-# Quiz
+# Quiz (MVP Brevet)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+Application Angular minimale pour un quiz ludique (niveau brevet) + environnement Mockoon pour simuler le backend.
 
-## Development server
+## Démarrage rapide
 
-To start a local development server, run:
+1) Backend mock (Mockoon)
+- Installer Mockoon: https://mockoon.com/
+- Importer le fichier `mockoon-env.json` (File → Import → From file)
+- Démarrer l'environnement "Quiz API (Brevet)" sur le port 3100
+- Vérifier: http://localhost:3100/api/subjects renvoie la liste
 
-```bash
-ng serve
-```
+2) Frontend Angular
+- Installer les dépendances: `npm install`
+- Lancer le serveur de dev: `npm start` (ou `ng serve`)
+- Ouvrir: http://localhost:4200/
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Fonctionnalités MVP
+- Écran matières: liste des matières depuis GET /api/subjects
+- Écran quiz par matière: GET /api/quizzes?subjectId=...
+- Écran jeu: GET /api/questions?quizId=..., navigation entre questions, sélection réponse
+- Écran résultats: calcul du score côté front et récapitulatif
 
-## Code scaffolding
+## API consommée (Mockoon)
+- GET /api/subjects → liste des matières
+- GET /api/quizzes?subjectId=maths|hgeo → quiz filtrés
+- GET /api/questions?quizId=m1|h1 → questions du quiz
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Structure de code
+- src/app/services/api.service.ts → appels HTTP
+- src/app/components/* → composants standalone
+- src/app/app.routes.ts → routing
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Personnalisation
+- Ajoutez des matières/quiz/questions en éditant `mockoon-env.json`.
+- Le base URL de l'API est défini dans `ApiService`.

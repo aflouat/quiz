@@ -1,0 +1,134 @@
+{
+  "source": "mockoon:export",
+  "version": "3.0.0",
+  "data": [
+    {
+      "type": "environment",
+      "item": {
+        "uuid": "a2d2b8f8-9f4e-4b1a-9b0a-1a23456789ab",
+        "lastMigration": 29,
+        "name": "Quiz API (Brevet)",
+        "endpointPrefix": "",
+        "latency": 0,
+        "port": 3100,
+        "hostname": "0.0.0.0",
+        "routes": [
+          {
+            "uuid": "subj-0001-0002-0003-000000000001",
+            "documentation": "Liste des matières",
+            "method": "get",
+            "endpoint": "api/subjects",
+            "responses": [
+              {
+                "uuid": "resp-subjects-1",
+                "body": "[\n  { \"id\": \"maths\", \"name\": \"Mathématiques\", \"icon\": \"calculate\" },\n  { \"id\": \"hgeo\",  \"name\": \"Histoire-Géographie\", \"icon\": \"public\" }\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "All subjects",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "quiz-0001-0002-0003-000000000002",
+            "documentation": "Liste des quiz par matière (via subjectId)",
+            "method": "get",
+            "endpoint": "api/quizzes",
+            "responses": [
+              {
+                "uuid": "resp-quizzes-maths",
+                "rules": [
+                  { "target": "query", "modifier": "subjectId", "value": "maths" }
+                ],
+                "body": "[\n  { \"id\": \"m1\", \"subjectId\": \"maths\", \"title\": \"Fractions et Proportions\", \"description\": \"Révisions de base\", \"durationSec\": 300, \"questionCount\": 5 },\n  { \"id\": \"m2\", \"subjectId\": \"maths\", \"title\": \"Géométrie plane\", \"description\": \"Angles, triangles, Thalès\", \"durationSec\": 420, \"questionCount\": 5 }\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Quizzes Maths",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              },
+              {
+                "uuid": "resp-quizzes-hgeo",
+                "rules": [
+                  { "target": "query", "modifier": "subjectId", "value": "hgeo" }
+                ],
+                "body": "[\n  { \"id\": \"h1\", \"subjectId\": \"hgeo\", \"title\": \"Révolution française\", \"description\": \"Dates et acteurs clés\", \"durationSec\": 360, \"questionCount\": 5 },\n  { \"id\": \"h2\", \"subjectId\": \"hgeo\", \"title\": \"Cartographie\", \"description\": \"Lire et comprendre une carte\", \"durationSec\": 420, \"questionCount\": 5 }\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Quizzes Histoire-Géo",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              },
+              {
+                "uuid": "resp-quizzes-default",
+                "body": "[]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Default (no subjectId)",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "ques-0001-0002-0003-000000000003",
+            "documentation": "Questions d’un quiz (via quizId)",
+            "method": "get",
+            "endpoint": "api/questions",
+            "responses": [
+              {
+                "uuid": "resp-questions-m1",
+                "rules": [
+                  { "target": "query", "modifier": "quizId", "value": "m1" }
+                ],
+                "body": "[\n  { \"id\": \"m1q1\", \"quizId\": \"m1\", \"text\": \"Quelle est la fraction équivalente à 1/2 ?\", \"choices\": [\"2/4\", \"1/3\", \"3/5\", \"2/3\"], \"correctIndex\": 0, \"explanation\": \"Multiplier numérateur et dénominateur par 2.\" },\n  { \"id\": \"m1q2\", \"quizId\": \"m1\", \"text\": \"Si 3x = 12, alors x = ?\", \"choices\": [\"2\", \"3\", \"4\", \"6\"], \"correctIndex\": 2 },\n  { \"id\": \"m1q3\", \"quizId\": \"m1\", \"text\": \"50% de 200 = ?\", \"choices\": [\"50\", \"75\", \"100\", \"125\"], \"correctIndex\": 2 },\n  { \"id\": \"m1q4\", \"quizId\": \"m1\", \"text\": \"Quelle écriture est proportionnelle ?\", \"choices\": [\"(2,3) → (4,5)\", \"(2,3) → (4,6)\", \"(3,5) → (6,8)\", \"(1,4) → (3,8)\"], \"correctIndex\": 1 },\n  { \"id\": \"m1q5\", \"quizId\": \"m1\", \"text\": \"Simplifier 6/9\", \"choices\": [\"2/3\", \"3/4\", \"4/6\", \"1/2\"], \"correctIndex\": 0 }\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Questions m1",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              },
+              {
+                "uuid": "resp-questions-h1",
+                "rules": [
+                  { "target": "query", "modifier": "quizId", "value": "h1" }
+                ],
+                "body": "[\n  { \"id\": \"h1q1\", \"quizId\": \"h1\", \"text\": \"En quelle année débute la Révolution française ?\", \"choices\": [\"1776\", \"1789\", \"1793\", \"1815\"], \"correctIndex\": 1 },\n  { \"id\": \"h1q2\", \"quizId\": \"h1\", \"text\": \"Quel événement marque la fin de l’Ancien Régime ?\", \"choices\": [\"Serment du Jeu de Paume\", \"Prise de la Bastille\", \"Chute de Robespierre\", \"Restauration\"], \"correctIndex\": 1 },\n  { \"id\": \"h1q3\", \"quizId\": \"h1\", \"text\": \"Quel document proclame les droits des citoyens ?\", \"choices\": [\"Code civil\", \"Déclaration des droits de l’Homme et du citoyen\", \"Constitution de 1791\", \"Acte de l’Union\"], \"correctIndex\": 1 },\n  { \"id\": \"h1q4\", \"quizId\": \"h1\", \"text\": \"Qui était le roi de France en 1789 ?\", \"choices\": [\"Louis XIV\", \"Louis XV\", \"Louis XVI\", \"Napoléon Ier\"], \"correctIndex\": 2 },\n  { \"id\": \"h1q5\", \"quizId\": \"h1\", \"text\": \"Quelle période suit immédiatement 1789 ?\", \"choices\": [\"Terreur\", \"Directoire\", \"Monarchie de Juillet\", \"Assemblée nationale constituante\"], \"correctIndex\": 3 }\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Questions h1",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              },
+              {
+                "uuid": "resp-questions-default",
+                "body": "[]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Default (no quizId)",
+                "headers": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ]
+              }
+            ]
+          }
+        ],
+        "rootChildren": [],
+        "proxyMode": false,
+        "proxyHost": "",
+        "https": false,
+        "cors": true,
+        "headers": [],
+        "proxyRemovePrefix": false,
+        "endpointPrefixTrailingSlash": false
+      }
+    }
+  ]
+}
